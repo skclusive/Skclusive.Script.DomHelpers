@@ -46,7 +46,8 @@ window.Skclusive = {
             addClasses,
             removeClasses,
             updateClasses
-        }
+        },
+        ...((window.Skclusive || {}).Script)
     },
     ...window.Skclusive
 };
