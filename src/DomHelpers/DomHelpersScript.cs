@@ -542,6 +542,12 @@ namespace Skclusive.Script.DomHelpers
               }
             }
 
+            function blur(element) {
+              if (element) {
+                setTimeout(() => element.blur(), 1);
+              }
+            }
+
             function moveContent(source, target) {
               if (target && source) {
                 target.innerHTML = '';
@@ -558,7 +564,9 @@ namespace Skclusive.Script.DomHelpers
             }
 
             window.Skclusive = {
+              ...window.Skclusive,
               Script: {
+                ...(window.Skclusive || {}).Script,
                 DomHelpers: {
                   ...DomHelpers,
                   repaint,
@@ -568,12 +576,11 @@ namespace Skclusive.Script.DomHelpers
                   removeClasses,
                   updateClasses,
                   focus,
+                  blur,
                   moveContent,
                   clearContent
-                },
-                ...(window.Skclusive || {}).Script
-              },
-              ...window.Skclusive
+                }
+              }
             };
 
           }());

@@ -14,12 +14,12 @@ namespace Skclusive.Script.DomHelpers
             JSRuntime = jsruntime;
         }
 
-        public Task AddClass(ElementReference? element, string clazz, bool trigger = false)
+        public Task AddClassAsync(ElementReference? element, string clazz, bool trigger = false)
         {
-            return AddClasses(element, new List<string>(clazz.Split(' ')), trigger);
+            return AddClassesAsync(element, new List<string>(clazz.Split(' ')), trigger);
         }
 
-        public async Task AddClasses(ElementReference? element, List<string> clazzes, bool trigger = false)
+        public async Task AddClassesAsync(ElementReference? element, List<string> clazzes, bool trigger = false)
         {
             if (element.HasValue)
             {
@@ -27,12 +27,12 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public Task RemoveClass(ElementReference? element, string clazz)
+        public Task RemoveClassAsync(ElementReference? element, string clazz)
         {
-            return RemoveClasses(element, new List<string>(clazz.Split(' ')));
+            return RemoveClassesAsync(element, new List<string>(clazz.Split(' ')));
         }
 
-        public async Task RemoveClasses(ElementReference? element, List<string> clazzes)
+        public async Task RemoveClassesAsync(ElementReference? element, List<string> clazzes)
         {
             if (element.HasValue)
             {
@@ -40,7 +40,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task UpdateClasses(ElementReference? element, List<string> removes, List<string> adds, bool trigger = false)
+        public async Task UpdateClassesAsync(ElementReference? element, List<string> removes, List<string> adds, bool trigger = false)
         {
             if (element.HasValue)
             {
@@ -48,7 +48,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task SetStyle(ElementReference? element, IDictionary<string, object> styles, bool trigger = false)
+        public async Task SetStyleAsync(ElementReference? element, IDictionary<string, object> styles, bool trigger = false)
         {
             if (element.HasValue)
             {
@@ -56,7 +56,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task<object> GetStyle(ElementReference? element, string style)
+        public async Task<object> GetStyleAsync(ElementReference? element, string style)
         {
             if (element.HasValue)
             {
@@ -66,7 +66,7 @@ namespace Skclusive.Script.DomHelpers
             return null;
         }
 
-        public async Task Focus(ElementReference? element)
+        public async Task FocusAsync(ElementReference? element)
         {
             if(element.HasValue)
             {
@@ -74,7 +74,15 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task MoveContent(ElementReference? source, ElementReference? target)
+        public async Task BlurAsync(ElementReference? element)
+        {
+            if(element.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.blur", element);
+            }
+        }
+
+        public async Task MoveContentAsync(ElementReference? source, ElementReference? target)
         {
             if (source.HasValue && target.HasValue)
             {
@@ -82,7 +90,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task ClearContent(ElementReference? element)
+        public async Task ClearContentAsync(ElementReference? element)
         {
             if (element.HasValue)
             {

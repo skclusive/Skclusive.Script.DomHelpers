@@ -42,6 +42,12 @@ function focus(element) {
   }
 }
 
+function blur(element) {
+  if (element) {
+    setTimeout(() => element.blur(), 1);
+  }
+}
+
 function moveContent(source, target) {
   if (target && source) {
     target.innerHTML = "";
@@ -58,7 +64,9 @@ function clearContent(element) {
 }
 
 window.Skclusive = {
+  ...window.Skclusive,
   Script: {
+    ...(window.Skclusive || {}).Script,
     DomHelpers: {
       ...DomHelpers,
       repaint,
@@ -68,10 +76,9 @@ window.Skclusive = {
       removeClasses,
       updateClasses,
       focus,
+      blur,
       moveContent,
       clearContent
-    },
-    ...(window.Skclusive || {}).Script
-  },
-  ...window.Skclusive
+    }
+  }
 };
