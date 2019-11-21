@@ -65,5 +65,29 @@ namespace Skclusive.Script.DomHelpers
 
             return null;
         }
+
+        public async Task Focus(ElementReference? element)
+        {
+            if(element.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.focus", element);
+            }
+        }
+
+        public async Task MoveContent(ElementReference? source, ElementReference? target)
+        {
+            if (source.HasValue && target.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target);
+            }
+        }
+
+        public async Task ClearContent(ElementReference? element)
+        {
+            if (element.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.clearContent", element);
+            }
+        }
     }
 }
