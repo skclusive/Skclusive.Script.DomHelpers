@@ -1,0 +1,40 @@
+@inherits DisposableComponentBase
+@inject DomHelpers DomHelpers
+@inject DomHelpersTests DomHelpersTests
+
+<div  @ref="Root.Current">
+    <h3>
+        Element API test cases
+    </h3>
+    <div class="parent">
+        <div>
+            <div @ref="Reference.Current" style="width: 100%; height: 200px">
+                Element Leaf Node
+            </div>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private Reference Reference { set; get; } = new Reference();
+
+    private Reference Root { set; get; } = new Reference();
+
+    protected override async Task OnAfterMountAsync()
+    {
+        await base.OnAfterMountAsync();
+
+        RunTimeout(() =>
+        {
+            _ = FindClosetAsync();
+        }, 1000);
+    }
+
+    private async Task FindClosetAsync()
+    {
+        var parent = await DomHelpers.FindClosetAsync(Reference.Current, ".parent", Root.Current);
+
+        await DomHelpers.AddClassAsync(parent, "yellow");
+    }
+}

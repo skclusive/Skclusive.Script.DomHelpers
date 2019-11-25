@@ -487,6 +487,44 @@
     'default': index
   });
 
+  // @ts-check
+
+  const nextReferenceCaptureId = (function() {
+    let referenceCaptureId = 10000;
+    return () => referenceCaptureId++;
+  })();
+
+  function applyCaptureIdToElement(element, referenceCaptureId) {
+    element.setAttribute(getCaptureIdAttributeName(referenceCaptureId), "");
+  }
+
+  function getCaptureIdAttributeName(referenceCaptureId) {
+    return `_bl_${referenceCaptureId}`;
+  }
+
+  function captureNodeReturn(element) {
+    if (element) {
+      const referenceCaptureId = nextReferenceCaptureId();
+      applyCaptureIdToElement(element, referenceCaptureId);
+      return `${referenceCaptureId}`;
+    }
+    return null;
+  }
+
+  function activeElement$1(node) {
+    return captureNodeReturn(
+      activeElement(ownerDocument(node))
+    );
+  }
+
+  function closest$1(node, selector, stopAt) {
+    return captureNodeReturn(closest(node, selector, stopAt));
+  }
+
+  function offsetParent$1(node) {
+    return captureNodeReturn(offsetParent(node));
+  }
+
   function repaint(element) {
     // This is for to force a repaint,
     // which is necessary in order to transition styles when adding a class name.
@@ -496,7 +534,7 @@
   function setStyle(element, styles, trigger) {
     style(element, styles);
     if (trigger) {
-      repaint(elememt);
+      repaint(element);
     }
   }
 
@@ -507,7 +545,7 @@
   function addClasses(element, classes, trigger) {
     classes.forEach(clazz => addClass(element, clazz));
     if (trigger) {
-      repaint(elememt);
+      repaint(element);
     }
   }
 
@@ -519,7 +557,7 @@
     removeClasses(element, removes);
     addClasses(element, adds);
     if (trigger) {
-      repaint(elememt);
+      repaint(element);
     }
   }
 
@@ -550,12 +588,18 @@
     }
   }
 
+  // @ts-ignore
   window.Skclusive = {
+    // @ts-ignore
     ...window.Skclusive,
     Script: {
+      // @ts-ignore
       ...(window.Skclusive || {}).Script,
       DomHelpers: {
         ...DomHelpers,
+        activeElement: activeElement$1,
+        closest: closest$1,
+        offsetParent: offsetParent$1,
         repaint,
         setStyle,
         getStyle,

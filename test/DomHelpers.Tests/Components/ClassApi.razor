@@ -1,0 +1,60 @@
+@inherits DisposableComponentBase
+@inject DomHelpers DomHelpers
+
+<h3>
+    Class API test cases
+</h3>
+
+<div @ref="Reference.Current" style="width: 100%; height: 200px">
+ This will have selected background-color HasRed: @HasRed
+</div>
+
+@code
+{
+    private Reference Reference { set; get; } = new Reference();
+
+    private bool HasRed { set; get; }
+
+    protected override async Task OnAfterMountAsync()
+    {
+        await base.OnAfterMountAsync();
+
+        RunTimeout(() =>
+        {
+            _ = AddClassesAsync();
+        }, 1000);
+
+        RunTimeout(() =>
+        {
+            _ = ToggleClassAsync();
+        }, 2000);
+
+        RunTimeout(() =>
+        {
+            _ = SetStyleAsync();
+        }, 2000);
+    }
+
+    private async Task AddClassesAsync()
+    {
+        await DomHelpers.AddClassesAsync(Reference.Current, new List<string> { "red", "font" });
+
+        HasRed = await DomHelpers.HasClassAsync(Reference.Current, "red");
+
+        StateHasChanged();
+    }
+
+    private async Task ToggleClassAsync()
+    {
+        await DomHelpers.ToggleClassAsync(Reference.Current, "red");
+
+        HasRed = await DomHelpers.HasClassAsync(Reference.Current, "red");
+
+        StateHasChanged();
+    }
+
+    private async Task SetStyleAsync()
+    {
+        await DomHelpers.SetStyleAsync(Reference.Current, new Dictionary<string, object> { { "background-color", "yellow"} });
+    }
+}

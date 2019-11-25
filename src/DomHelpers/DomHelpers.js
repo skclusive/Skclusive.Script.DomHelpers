@@ -1,4 +1,42 @@
-﻿import * as DomHelpers from "dom-helpers";
+﻿// @ts-check
+
+import * as DomHelpers from "dom-helpers";
+
+const nextReferenceCaptureId = (function() {
+  let referenceCaptureId = 10000;
+  return () => referenceCaptureId++;
+})();
+
+function applyCaptureIdToElement(element, referenceCaptureId) {
+  element.setAttribute(getCaptureIdAttributeName(referenceCaptureId), "");
+}
+
+function getCaptureIdAttributeName(referenceCaptureId) {
+  return `_bl_${referenceCaptureId}`;
+}
+
+function captureNodeReturn(element) {
+  if (element) {
+    const referenceCaptureId = nextReferenceCaptureId();
+    applyCaptureIdToElement(element, referenceCaptureId);
+    return `${referenceCaptureId}`;
+  }
+  return null;
+}
+
+function activeElement(node) {
+  return captureNodeReturn(
+    DomHelpers.activeElement(DomHelpers.ownerDocument(node))
+  );
+}
+
+function closest(node, selector, stopAt) {
+  return captureNodeReturn(DomHelpers.closest(node, selector, stopAt));
+}
+
+function offsetParent(node) {
+  return captureNodeReturn(DomHelpers.offsetParent(node));
+}
 
 function repaint(element) {
   // This is for to force a repaint,
@@ -9,7 +47,7 @@ function repaint(element) {
 function setStyle(element, styles, trigger) {
   DomHelpers.style(element, styles);
   if (trigger) {
-    repaint(elememt);
+    repaint(element);
   }
 }
 
@@ -20,7 +58,7 @@ function getStyle(element, style) {
 function addClasses(element, classes, trigger) {
   classes.forEach(clazz => DomHelpers.addClass(element, clazz));
   if (trigger) {
-    repaint(elememt);
+    repaint(element);
   }
 }
 
@@ -32,7 +70,7 @@ function updateClasses(element, removes, adds, trigger) {
   removeClasses(element, removes);
   addClasses(element, adds);
   if (trigger) {
-    repaint(elememt);
+    repaint(element);
   }
 }
 
@@ -63,12 +101,18 @@ function clearContent(element) {
   }
 }
 
+// @ts-ignore
 window.Skclusive = {
+  // @ts-ignore
   ...window.Skclusive,
   Script: {
+    // @ts-ignore
     ...(window.Skclusive || {}).Script,
     DomHelpers: {
       ...DomHelpers,
+      activeElement,
+      closest,
+      offsetParent,
       repaint,
       setStyle,
       getStyle,
