@@ -245,11 +245,11 @@ namespace Skclusive.Script.DomHelpers
             return -1;
         }
 
-        public async Task<Position> GetPositionAsync(ElementReference? element, ElementReference? offsetParent)
+        public async Task<Point> GetPositionAsync(ElementReference? element, ElementReference? offsetParent)
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<Position>("Skclusive.Script.DomHelpers.position", element, offsetParent);
+                return await JSRuntime.InvokeAsync<Point>("Skclusive.Script.DomHelpers.position", element, offsetParent);
             }
 
             return null;
