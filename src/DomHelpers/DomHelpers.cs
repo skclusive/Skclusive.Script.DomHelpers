@@ -266,5 +266,24 @@ namespace Skclusive.Script.DomHelpers
 
             return default(ElementReference);
         }
+
+        public async Task<Boundry> GetBoundryAsync(ElementReference? element)
+        {
+            if (element.HasValue)
+            {
+                return await JSRuntime.InvokeAsync<Boundry>("Skclusive.Script.DomHelpers.getBoundry", element);
+            }
+
+            return new Boundry
+            {
+                Top = 0,
+
+                Left = 0,
+
+                Width = 0,
+
+                Height = 0
+            };
+        }
     }
 }

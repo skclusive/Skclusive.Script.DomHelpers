@@ -601,6 +601,18 @@ namespace Skclusive.Script.DomHelpers
                 }
             }
 
+            function getBoundry(element) {
+                const boundry = element
+                ? element.getBoundingClientRect()
+                : {
+                    width: 0,
+                    height: 0,
+                    left: 0,
+                    top: 0
+                    };
+                return boundry;
+            }
+
             // @ts-ignore
             window.Skclusive = {
                 // @ts-ignore
@@ -622,7 +634,8 @@ namespace Skclusive.Script.DomHelpers
                     focus,
                     blur,
                     moveContent,
-                    clearContent
+                    clearContent,
+                    getBoundry
                 }
                 }
             };

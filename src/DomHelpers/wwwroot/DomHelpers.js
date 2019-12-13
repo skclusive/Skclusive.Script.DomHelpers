@@ -588,6 +588,18 @@
     }
   }
 
+  function getBoundry(element) {
+    const boundry = element
+      ? element.getBoundingClientRect()
+      : {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0
+        };
+    return boundry;
+  }
+
   // @ts-ignore
   window.Skclusive = {
     // @ts-ignore
@@ -609,7 +621,8 @@
         focus,
         blur,
         moveContent,
-        clearContent
+        clearContent,
+        getBoundry
       }
     }
   };
