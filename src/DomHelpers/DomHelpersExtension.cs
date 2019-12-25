@@ -6,7 +6,7 @@ namespace Skclusive.Script.DomHelpers
     {
         public static void AddDomHelpers(this IServiceCollection services)
         {
-            services.AddSingleton<DomHelpers>();
+            services.AddScoped<DomHelpers>();
         }
     }
 }

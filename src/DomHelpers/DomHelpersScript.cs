@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Components.Rendering;
-using Skclusive.Core.Component;
+﻿using Skclusive.Core.Component;
 
 namespace Skclusive.Script.DomHelpers
 {
-    public class DomHelpersScript : StaticComponentBase
+    public class DomHelpersScript : ScriptComponentBase
     {
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        protected override string GetScript()
         {
-            builder.OpenElement(0, "script");
-            builder.AddContent(1,
-            #region DomHelpers.js
+            return
             @"
             (function () {
             'use strict';
@@ -641,10 +638,7 @@ namespace Skclusive.Script.DomHelpers
             };
 
             }());
-            "
-            #endregion
-            );
-            builder.CloseElement();
+            ";
         }
     }
 }
