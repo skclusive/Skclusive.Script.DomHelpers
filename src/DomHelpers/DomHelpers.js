@@ -2,6 +2,35 @@
 
 import * as DomHelpers from "dom-helpers";
 
+function generateId() {
+  return Math.random()
+    .toString(36)
+    .substr(2);
+}
+
+function debounce(func, wait = 166) {
+  let timeout;
+  function debounced(...args) {
+    // eslint-disable-next-line consistent-this
+    const that = this;
+    const later = () => {
+      func.apply(that, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  }
+
+  debounced.clear = () => {
+    clearTimeout(timeout);
+  };
+
+  return debounced;
+}
+
+function goBack(depth) {
+    setTimeout(() => history.go(depth), 2000);
+}
+
 const nextReferenceCaptureId = (function() {
   let referenceCaptureId = 10000;
   return () => referenceCaptureId++;
@@ -113,6 +142,33 @@ function getBoundry(element) {
   return boundry;
 }
 
+// Sum the scrollTop between two elements.
+function getScrollParent(parent, child) {
+  let element = child;
+  let scrollTop = 0;
+
+  while (element && element !== parent) {
+    element = element.parentNode;
+    scrollTop += element.scrollTop;
+  }
+  return scrollTop;
+}
+
+function getElementOffset(element) {
+  return {
+    width: element.offsetWidth,
+    height: element.offsetHeight
+  };
+}
+
+function getWindowOffset(element) {
+  const containerWindow = DomHelpers.ownerWindow(element);
+  return {
+    width: containerWindow.innerWidth,
+    height: containerWindow.innerHeight
+  };
+}
+
 // @ts-ignore
 window.Skclusive = {
   // @ts-ignore
@@ -122,6 +178,7 @@ window.Skclusive = {
     ...(window.Skclusive || {}).Script,
     DomHelpers: {
       ...DomHelpers,
+      generateId,
       activeElement,
       closest,
       offsetParent,
@@ -135,7 +192,12 @@ window.Skclusive = {
       blur,
       moveContent,
       clearContent,
-      getBoundry
+      getBoundry,
+      getScrollParent,
+      debounce,
+      goBack,
+      getElementOffset,
+      getWindowOffset
     }
   }
 };

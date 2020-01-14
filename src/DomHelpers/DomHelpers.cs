@@ -225,21 +225,21 @@ namespace Skclusive.Script.DomHelpers
             return null;
         }
 
-        public async Task<int> GetHeightAsync(ElementReference? element, bool client)
+        public async Task<double> GetHeightAsync(ElementReference? element, bool client)
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<int>("Skclusive.Script.DomHelpers.height", element, client);
+                return await JSRuntime.InvokeAsync<double>("Skclusive.Script.DomHelpers.height", element, client);
             }
 
             return -1;
         }
 
-        public async Task<int> GetWidthAsync(ElementReference? element, bool client)
+        public async Task<double> GetWidthAsync(ElementReference? element, bool client)
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<int>("Skclusive.Script.DomHelpers.width", element, client);
+                return await JSRuntime.InvokeAsync<double>("Skclusive.Script.DomHelpers.width", element, client);
             }
 
             return -1;
@@ -284,6 +284,36 @@ namespace Skclusive.Script.DomHelpers
 
                 Height = 0
             };
+        }
+
+        public async Task<double> GetScrollParentAsync(ElementReference? parent, ElementReference? child)
+        {
+            if (parent.HasValue && child.HasValue)
+            {
+                return await JSRuntime.InvokeAsync<double>("Skclusive.Script.DomHelpers.getScrollParent", parent, child);
+            }
+
+            return default(double);
+        }
+
+        public async Task<Offset> GetElementOffsetAsync(ElementReference? element)
+        {
+            if (element.HasValue)
+            {
+                return await JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getElementOffset", element);
+            }
+
+            return new Offset
+            {
+                Width = 0,
+
+                Height = 0
+            };
+        }
+
+        public async Task<Offset> GetWindowOffsetAsync(ElementReference? element)
+        {
+            return await JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getWindowOffset", element);
         }
     }
 }
