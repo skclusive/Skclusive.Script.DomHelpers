@@ -85,6 +85,16 @@ namespace Skclusive.Script.DomHelpers
             return null;
         }
 
+        public async Task<string> GetInputValueAsync(ElementReference? input)
+        {
+            if (input.HasValue)
+            {
+                return await JSRuntime.InvokeAsync<string>("Skclusive.Script.DomHelpers.getInputValue", input);
+            }
+
+            return null;
+        }
+
         // public async Task<ElementReference> GetOwnerDocumentAsync(ElementReference? element)
         // {
         //     if (element.HasValue)
@@ -123,11 +133,11 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task MoveContentAsync(ElementReference? source, ElementReference? target)
+        public async Task MoveContentAsync(ElementReference? source, ElementReference? target, ElementReference? targetBody)
         {
-            if (source.HasValue && target.HasValue)
+            if (source.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target);
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target, targetBody);
             }
         }
 
@@ -314,6 +324,11 @@ namespace Skclusive.Script.DomHelpers
         public async Task<Offset> GetWindowOffsetAsync(ElementReference? element)
         {
             return await JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getWindowOffset", element);
+        }
+
+        public async Task RemoveNodeAsync(ElementReference? element)
+        {
+            await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeNode", element);
         }
     }
 }

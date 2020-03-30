@@ -27,8 +27,14 @@ function debounce(func, wait = 166) {
   return debounced;
 }
 
+function removeNode(node) {
+  if (node && node.parentNode) {
+    node.parentNode.removeChild(node);
+  }
+}
+
 function goBack(depth) {
-    setTimeout(() => history.go(depth), 2000);
+  setTimeout(() => history.go(depth), 2000);
 }
 
 const nextReferenceCaptureId = (function() {
@@ -115,11 +121,22 @@ function blur(element) {
   }
 }
 
-function moveContent(source, target) {
-  if (target && source) {
-    target.innerHTML = "";
+function moveContent(source, target, targetBody) {
+  if (source) {
+    let container = null;
+    if (target) {
+      container = target;
+    } else {
+      container = DomHelpers.ownerDocument(targetBody).body;
+    }
     while (source.childNodes.length > 0) {
-      target.appendChild(source.childNodes[0]);
+      const child = source.childNodes[0];
+      // ignoring comment node
+      if (child.nodeType !== 8) {
+        container.appendChild(child);
+      } else {
+        removeNode(child);
+      }
     }
   }
 }
@@ -161,6 +178,10 @@ function getElementOffset(element) {
   };
 }
 
+function getInputValue(input) {
+  return input && input.value;
+}
+
 function getWindowOffset(element) {
   const containerWindow = DomHelpers.ownerWindow(element);
   return {
@@ -197,7 +218,9 @@ window.Skclusive = {
       debounce,
       goBack,
       getElementOffset,
-      getWindowOffset
+      getWindowOffset,
+      getInputValue,
+      removeNode
     }
   }
 };
