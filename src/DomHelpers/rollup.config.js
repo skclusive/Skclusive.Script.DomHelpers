@@ -6,7 +6,7 @@ process.env.INCLUDE_DEPS === "true";
 module.exports = {
   input: "DomHelpers.js",
   output: {
-    file: "wwwroot/DomHelpers.js",
+    file: "artifacts/DomHelpers.js",
     format: "iife"
   },
   plugins: [resolve(), terser()]
