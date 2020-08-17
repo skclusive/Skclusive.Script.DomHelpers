@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8B76EFE3-0EBA-447D-BBD1-BD1C08BB83FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomHelpers", "src\DomHelpers\DomHelpers.csproj", "{D03D913E-6381-4F58-BFB9-760E6DBC4002}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomHelpers", "src\DomHelpers.csproj", "{D03D913E-6381-4F58-BFB9-760E6DBC4002}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{49ECE1E3-C2F1-49B7-8EFC-7F0FEA523946}"
 EndProject

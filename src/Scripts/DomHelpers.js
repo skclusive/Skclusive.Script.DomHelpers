@@ -3,9 +3,7 @@
 import * as DomHelpers from "dom-helpers";
 
 function generateId() {
-  return Math.random()
-    .toString(36)
-    .substr(2);
+  return Math.random().toString(36).substr(2);
 }
 
 function debounce(func, wait = 166) {
@@ -37,7 +35,7 @@ function goBack(depth) {
   setTimeout(() => history.go(depth), 2000);
 }
 
-const nextReferenceCaptureId = (function() {
+const nextReferenceCaptureId = (function () {
   let referenceCaptureId = 10000;
   return () => referenceCaptureId++;
 })();
@@ -91,14 +89,14 @@ function getStyle(element, style) {
 }
 
 function addClasses(element, classes, trigger) {
-  classes.forEach(clazz => DomHelpers.addClass(element, clazz));
+  classes.forEach((clazz) => DomHelpers.addClass(element, clazz));
   if (trigger) {
     repaint(element);
   }
 }
 
 function removeClasses(element, classes) {
-  classes.forEach(clazz => DomHelpers.removeClass(element, clazz));
+  classes.forEach((clazz) => DomHelpers.removeClass(element, clazz));
 }
 
 function updateClasses(element, removes, adds, trigger) {
@@ -141,6 +139,12 @@ function moveContent(source, target, targetBody) {
   }
 }
 
+function copyContent(source, target) {
+  if (source && target) {
+    target.innerHTML = source.innerHTML;
+  }
+}
+
 function clearContent(element) {
   while (element.childNodes.length > 0) {
     element.removeChild(element.childNodes[0]);
@@ -154,7 +158,7 @@ function getBoundry(element) {
         width: 0,
         height: 0,
         left: 0,
-        top: 0
+        top: 0,
       };
   return boundry;
 }
@@ -174,7 +178,7 @@ function getScrollParent(parent, child) {
 function getElementOffset(element) {
   return {
     width: element.offsetWidth,
-    height: element.offsetHeight
+    height: element.offsetHeight,
   };
 }
 
@@ -186,8 +190,27 @@ function getWindowOffset(element) {
   const containerWindow = DomHelpers.ownerWindow(element);
   return {
     width: containerWindow.innerWidth,
-    height: containerWindow.innerHeight
+    height: containerWindow.innerHeight,
   };
+}
+
+function resetHeight(el) {
+  if (!el) return;
+  el.style.setProperty("height", "auto");
+  const height = getComputedStyle(el).height;
+  el.style.setProperty("height", "0");
+  requestAnimationFrame(() => {
+    el.style.setProperty("height", height);
+  });
+}
+
+function toggleHeight(el) {
+  if (!el) return;
+  const height = getComputedStyle(el).height;
+  el.style.setProperty("height", height);
+  requestAnimationFrame(() => {
+    el.style.setProperty("height", "0");
+  });
 }
 
 // @ts-ignore
@@ -212,6 +235,7 @@ window.Skclusive = {
       focus,
       blur,
       moveContent,
+      copyContent,
       clearContent,
       getBoundry,
       getScrollParent,
@@ -220,7 +244,9 @@ window.Skclusive = {
       getElementOffset,
       getWindowOffset,
       getInputValue,
-      removeNode
-    }
-  }
+      removeNode,
+      resetHeight,
+      toggleHeight,
+    },
+  },
 };

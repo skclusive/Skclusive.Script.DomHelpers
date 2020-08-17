@@ -119,7 +119,7 @@ namespace Skclusive.Script.DomHelpers
 
         public async Task FocusAsync(ElementReference? element)
         {
-            if(element.HasValue)
+            if (element.HasValue)
             {
                 await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.focus", element);
             }
@@ -127,7 +127,7 @@ namespace Skclusive.Script.DomHelpers
 
         public async Task BlurAsync(ElementReference? element)
         {
-            if(element.HasValue)
+            if (element.HasValue)
             {
                 await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.blur", element);
             }
@@ -138,6 +138,14 @@ namespace Skclusive.Script.DomHelpers
             if (source.HasValue)
             {
                 await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target, targetBody);
+            }
+        }
+
+        public async Task CopyContentAsync(ElementReference? source, ElementReference? target)
+        {
+            if (source.HasValue && target.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.copyContent", source, target);
             }
         }
 
@@ -329,6 +337,22 @@ namespace Skclusive.Script.DomHelpers
         public async Task RemoveNodeAsync(ElementReference? element)
         {
             await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeNode", element);
+        }
+
+        public async Task ResetHeightAsync(ElementReference? element)
+        {
+            if (element.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.resetHeight", element);
+            }
+        }
+
+        public async Task ToggleHeightAsync(ElementReference? element)
+        {
+            if (element.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.toggleHeight", element);
+            }
         }
     }
 }

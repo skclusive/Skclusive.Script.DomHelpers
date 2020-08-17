@@ -10,6 +10,7 @@ namespace Skclusive.Script.DomHelpers
         {
             services.TryAddCoreServices(config);
             services.TryAddScoped<DomHelpers>();
+            services.AddSingleton<IScriptTypeProvider, DomHelpersScriptProvider>();
         }
     }
 }
