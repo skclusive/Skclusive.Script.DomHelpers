@@ -15,7 +15,7 @@ namespace Skclusive.Script.DomHelpers
             JSRuntime = jsruntime;
         }
 
-        public async Task<bool> HasClassAsync(ElementReference? element, string className)
+        public async ValueTask<bool> HasClassAsync(ElementReference? element, string className)
         {
             if (element.HasValue)
             {
@@ -25,12 +25,12 @@ namespace Skclusive.Script.DomHelpers
             return false;
         }
 
-        public Task AddClassAsync(ElementReference? element, string clazz, bool trigger = false)
+        public ValueTask AddClassAsync(ElementReference? element, string clazz, bool trigger = false)
         {
             return AddClassesAsync(element, new List<string>(clazz.Split(' ')), trigger);
         }
 
-        public async Task AddClassesAsync(ElementReference? element, List<string> clazzes, bool trigger = false)
+        public async ValueTask AddClassesAsync(ElementReference? element, List<string> clazzes, bool trigger = false)
         {
             if (element.HasValue)
             {
@@ -38,7 +38,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task ToggleClassAsync(ElementReference? element, string className)
+        public async ValueTask ToggleClassAsync(ElementReference? element, string className)
         {
             if (element.HasValue)
             {
@@ -46,12 +46,12 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public Task RemoveClassAsync(ElementReference? element, string clazz)
+        public ValueTask RemoveClassAsync(ElementReference? element, string clazz)
         {
             return RemoveClassesAsync(element, new List<string>(clazz.Split(' ')));
         }
 
-        public async Task RemoveClassesAsync(ElementReference? element, List<string> clazzes)
+        public async ValueTask RemoveClassesAsync(ElementReference? element, List<string> clazzes)
         {
             if (element.HasValue)
             {
@@ -59,7 +59,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task UpdateClassesAsync(ElementReference? element, List<string> removes, List<string> adds, bool trigger = false)
+        public async ValueTask UpdateClassesAsync(ElementReference? element, List<string> removes, List<string> adds, bool trigger = false)
         {
             if (element.HasValue)
             {
@@ -67,7 +67,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task SetStyleAsync(ElementReference? element, IDictionary<string, object> styles, bool trigger = false)
+        public async ValueTask SetStyleAsync(ElementReference? element, IDictionary<string, object> styles, bool trigger = false)
         {
             if (element.HasValue)
             {
@@ -75,7 +75,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task<object> GetStyleAsync(ElementReference? element, string style)
+        public async ValueTask<object> GetStyleAsync(ElementReference? element, string style)
         {
             if (element.HasValue)
             {
@@ -85,7 +85,7 @@ namespace Skclusive.Script.DomHelpers
             return null;
         }
 
-        public async Task<string> GetInputValueAsync(ElementReference? input)
+        public async ValueTask<string> GetInputValueAsync(ElementReference? input)
         {
             if (input.HasValue)
             {
@@ -105,7 +105,7 @@ namespace Skclusive.Script.DomHelpers
         //     return default(ElementReference);
         // }
 
-        public async Task<ElementReference> GetActiveElementAsync(ElementReference? element)
+        public async ValueTask<ElementReference> GetActiveElementAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -117,7 +117,7 @@ namespace Skclusive.Script.DomHelpers
             return default(ElementReference);
         }
 
-        public async Task FocusAsync(ElementReference? element)
+        public async ValueTask FocusAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -125,7 +125,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task BlurAsync(ElementReference? element)
+        public async ValueTask BlurAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -133,7 +133,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task MoveContentAsync(ElementReference? source, ElementReference? target, ElementReference? targetBody)
+        public async ValueTask MoveContentAsync(ElementReference? source, ElementReference? target, ElementReference? targetBody)
         {
             if (source.HasValue)
             {
@@ -141,7 +141,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task CopyContentAsync(ElementReference? source, ElementReference? target)
+        public async ValueTask CopyContentAsync(ElementReference? source, ElementReference? target)
         {
             if (source.HasValue && target.HasValue)
             {
@@ -149,7 +149,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task ClearContentAsync(ElementReference? element)
+        public async ValueTask ClearContentAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -157,7 +157,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task<ElementReference> FindClosetAsync(ElementReference? element, string selector, ElementReference? stopAt)
+        public async ValueTask<ElementReference> FindClosetAsync(ElementReference? element, string selector, ElementReference? stopAt)
         {
             if (element.HasValue)
             {
@@ -179,7 +179,7 @@ namespace Skclusive.Script.DomHelpers
         //     return default(ElementReference);
         // }
 
-        public async Task<string> GetComputedStyleAsync(ElementReference? element, string psuedoElement)
+        public async ValueTask<string> GetComputedStyleAsync(ElementReference? element, string psuedoElement)
         {
             if (element.HasValue)
             {
@@ -209,7 +209,7 @@ namespace Skclusive.Script.DomHelpers
         //     return false;
         // }
 
-        public async Task ScrollToAsync(ElementReference? element, int value)
+        public async ValueTask ScrollToAsync(ElementReference? element, int value)
         {
             if (element.HasValue)
             {
@@ -217,7 +217,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task ScrollLeftAsync(ElementReference? element, int value)
+        public async ValueTask ScrollLeftAsync(ElementReference? element, int value)
         {
             if (element.HasValue)
             {
@@ -225,7 +225,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task ScrollTopAsync(ElementReference? element, int value)
+        public async ValueTask ScrollTopAsync(ElementReference? element, int value)
         {
             if (element.HasValue)
             {
@@ -233,7 +233,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task<Boundry> GetOffsetAsync(ElementReference? element)
+        public async ValueTask<Boundry> GetOffsetAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -243,7 +243,7 @@ namespace Skclusive.Script.DomHelpers
             return null;
         }
 
-        public async Task<double> GetHeightAsync(ElementReference? element, bool client)
+        public async ValueTask<double> GetHeightAsync(ElementReference? element, bool client)
         {
             if (element.HasValue)
             {
@@ -253,7 +253,7 @@ namespace Skclusive.Script.DomHelpers
             return -1;
         }
 
-        public async Task<double> GetWidthAsync(ElementReference? element, bool client)
+        public async ValueTask<double> GetWidthAsync(ElementReference? element, bool client)
         {
             if (element.HasValue)
             {
@@ -263,7 +263,7 @@ namespace Skclusive.Script.DomHelpers
             return -1;
         }
 
-        public async Task<Point> GetPositionAsync(ElementReference? element, ElementReference? offsetParent)
+        public async ValueTask<Point> GetPositionAsync(ElementReference? element, ElementReference? offsetParent)
         {
             if (element.HasValue)
             {
@@ -273,7 +273,7 @@ namespace Skclusive.Script.DomHelpers
             return null;
         }
 
-        public async Task<ElementReference> GetScrollParentAsync(ElementReference? element)
+        public async ValueTask<ElementReference> GetScrollParentAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -285,7 +285,7 @@ namespace Skclusive.Script.DomHelpers
             return default(ElementReference);
         }
 
-        public async Task<Boundry> GetBoundryAsync(ElementReference? element)
+        public async ValueTask<Boundry> GetBoundryAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -304,7 +304,7 @@ namespace Skclusive.Script.DomHelpers
             };
         }
 
-        public async Task<double> GetScrollParentAsync(ElementReference? parent, ElementReference? child)
+        public async ValueTask<double> GetScrollParentAsync(ElementReference? parent, ElementReference? child)
         {
             if (parent.HasValue && child.HasValue)
             {
@@ -314,7 +314,7 @@ namespace Skclusive.Script.DomHelpers
             return default(double);
         }
 
-        public async Task<Offset> GetElementOffsetAsync(ElementReference? element)
+        public async ValueTask<Offset> GetElementOffsetAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -329,17 +329,17 @@ namespace Skclusive.Script.DomHelpers
             };
         }
 
-        public async Task<Offset> GetWindowOffsetAsync(ElementReference? element)
+        public ValueTask<Offset> GetWindowOffsetAsync(ElementReference? element)
         {
-            return await JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getWindowOffset", element);
+            return JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getWindowOffset", element);
         }
 
-        public async Task RemoveNodeAsync(ElementReference? element)
+        public ValueTask RemoveNodeAsync(ElementReference? element)
         {
-            await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeNode", element);
+            return JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeNode", element);
         }
 
-        public async Task ResetHeightAsync(ElementReference? element)
+        public async ValueTask ResetHeightAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
@@ -347,7 +347,7 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async Task ToggleHeightAsync(ElementReference? element)
+        public async ValueTask ToggleHeightAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
