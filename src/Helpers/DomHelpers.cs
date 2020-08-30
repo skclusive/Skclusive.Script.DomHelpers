@@ -133,11 +133,11 @@ namespace Skclusive.Script.DomHelpers
             }
         }
 
-        public async ValueTask MoveContentAsync(ElementReference? source, ElementReference? target, ElementReference? targetBody)
+        public async ValueTask MoveContentAsync(ElementReference? source, ElementReference? target, ElementReference? targetBody, ElementReference? targetHead = null)
         {
             if (source.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target, targetBody);
+                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target, targetBody, targetHead);
             }
         }
 

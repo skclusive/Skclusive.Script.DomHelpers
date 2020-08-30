@@ -119,11 +119,13 @@ function blur(element) {
   }
 }
 
-function moveContent(source, target, targetBody) {
+function moveContent(source, target, targetBody, targetHead) {
   if (source) {
     let container = null;
     if (target) {
       container = target;
+    } else if (targetHead) {
+      container = DomHelpers.ownerDocument(targetHead).head;
     } else {
       container = DomHelpers.ownerDocument(targetBody).body;
     }
