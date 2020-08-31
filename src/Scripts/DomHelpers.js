@@ -122,10 +122,13 @@ function blur(element) {
 function moveContent(source, target, targetBody, targetHead) {
   if (source) {
     let container = null;
+    let before = null;
     if (target) {
       container = target;
     } else if (targetHead) {
       container = DomHelpers.ownerDocument(targetHead).head;
+      const noncomment = Array.from(source.childNodes).find(child => child.nodeType !== 8);
+      before = noncomment && container.querySelector(noncomment.tagName);
     } else {
       container = DomHelpers.ownerDocument(targetBody).body;
     }
@@ -133,7 +136,11 @@ function moveContent(source, target, targetBody, targetHead) {
       const child = source.childNodes[0];
       // ignoring comment node
       if (child.nodeType !== 8) {
-        container.appendChild(child);
+        if (before) {
+          container.insertBefore(child, before);
+        } else {
+          container.appendChild(child);
+        }
       } else {
         removeNode(child);
       }
