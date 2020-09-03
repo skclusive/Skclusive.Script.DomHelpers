@@ -354,5 +354,10 @@ namespace Skclusive.Script.DomHelpers
                 await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.toggleHeight", element);
             }
         }
+
+        public ValueTask GoBackAsync()
+        {
+            return JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.goBack", -1);
+        }
     }
 }
