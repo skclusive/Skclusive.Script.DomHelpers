@@ -72,12 +72,14 @@ function offsetParent(node) {
 }
 
 function repaint(element) {
+  if (!element) return;
   // This is for to force a repaint,
   // which is necessary in order to transition styles when adding a class name.
   element.scrollTop;
 }
 
 function setStyle(element, styles, trigger) {
+  if (!element) return;
   DomHelpers.style(element, styles);
   if (trigger) {
     repaint(element);
@@ -85,10 +87,12 @@ function setStyle(element, styles, trigger) {
 }
 
 function getStyle(element, style) {
+  if (!element) return null;
   return DomHelpers.style(element, style);
 }
 
 function addClasses(element, classes, trigger) {
+  if (!element) return;
   classes.forEach((clazz) => DomHelpers.addClass(element, clazz));
   if (trigger) {
     repaint(element);
@@ -96,10 +100,12 @@ function addClasses(element, classes, trigger) {
 }
 
 function removeClasses(element, classes) {
+  if (!element) return;
   classes.forEach((clazz) => DomHelpers.removeClass(element, clazz));
 }
 
 function updateClasses(element, removes, adds, trigger) {
+  if (!element) return;
   removeClasses(element, removes);
   addClasses(element, adds);
   if (trigger) {
@@ -155,12 +161,14 @@ function copyContent(source, target) {
 }
 
 function clearContent(element) {
+  if (!element) return;
   while (element.childNodes.length > 0) {
     element.removeChild(element.childNodes[0]);
   }
 }
 
 function getBoundry(element) {
+  if (!element) return;
   const boundry = element
     ? element.getBoundingClientRect()
     : {

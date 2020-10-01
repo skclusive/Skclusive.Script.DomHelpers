@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using Skclusive.Core.Component;
 
 namespace Skclusive.Script.DomHelpers
 {
     public class DomHelpers
     {
-        private IJSRuntime JSRuntime { get; }
+        private IScriptService ScriptService { get; }
 
-        public DomHelpers(IJSRuntime jsruntime)
+        public DomHelpers(IScriptService scriptService)
         {
-            JSRuntime = jsruntime;
+            ScriptService = scriptService;
         }
 
         public async ValueTask<bool> HasClassAsync(ElementReference? element, string className)
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<bool>("Skclusive.Script.DomHelpers.hasClass", element, className);
+                return await ScriptService.InvokeAsync<bool>("Skclusive.Script.DomHelpers.hasClass", element, className);
             }
 
             return false;
@@ -34,7 +33,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.addClasses", element, clazzes, trigger);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.addClasses", element, clazzes, trigger);
             }
         }
 
@@ -42,7 +41,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.toggleClass", element, className);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.toggleClass", element, className);
             }
         }
 
@@ -55,7 +54,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeClasses", element, clazzes);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeClasses", element, clazzes);
             }
         }
 
@@ -63,7 +62,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.updateClasses", element, removes, adds, trigger);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.updateClasses", element, removes, adds, trigger);
             }
         }
 
@@ -71,7 +70,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.setStyle", element, styles, trigger);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.setStyle", element, styles, trigger);
             }
         }
 
@@ -79,7 +78,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<object>("Skclusive.Script.DomHelpers.getStyle", element, style);
+                return await ScriptService.InvokeAsync<object>("Skclusive.Script.DomHelpers.getStyle", element, style);
             }
 
             return null;
@@ -89,7 +88,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (input.HasValue)
             {
-                return await JSRuntime.InvokeAsync<string>("Skclusive.Script.DomHelpers.getInputValue", input);
+                return await ScriptService.InvokeAsync<string>("Skclusive.Script.DomHelpers.getInputValue", input);
             }
 
             return null;
@@ -99,7 +98,7 @@ namespace Skclusive.Script.DomHelpers
         // {
         //     if (element.HasValue)
         //     {
-        //         return await JSRuntime.InvokeAsync<ElementReference>("Skclusive.Script.DomHelpers.ownerDocument", element);
+        //         return await ScriptService.InvokeAsync<ElementReference>("Skclusive.Script.DomHelpers.ownerDocument", element);
         //     }
 
         //     return default(ElementReference);
@@ -109,7 +108,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                var id = await JSRuntime.InvokeAsync<string>("Skclusive.Script.DomHelpers.activeElement", element);
+                var id = await ScriptService.InvokeAsync<string>("Skclusive.Script.DomHelpers.activeElement", element);
 
                 return new ElementReference(id);
             }
@@ -121,7 +120,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.focus", element);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.focus", element);
             }
         }
 
@@ -129,7 +128,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.blur", element);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.blur", element);
             }
         }
 
@@ -137,7 +136,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (source.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target, targetBody, targetHead);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.moveContent", source, target, targetBody, targetHead);
             }
         }
 
@@ -145,7 +144,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (source.HasValue && target.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.copyContent", source, target);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.copyContent", source, target);
             }
         }
 
@@ -153,7 +152,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.clearContent", element);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.clearContent", element);
             }
         }
 
@@ -161,7 +160,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                var id = await JSRuntime.InvokeAsync<string>("Skclusive.Script.DomHelpers.closest", element, selector, stopAt);
+                var id = await ScriptService.InvokeAsync<string>("Skclusive.Script.DomHelpers.closest", element, selector, stopAt);
 
                 return new ElementReference(id);
             }
@@ -173,7 +172,7 @@ namespace Skclusive.Script.DomHelpers
         // {
         //     if (element.HasValue)
         //     {
-        //         return await JSRuntime.InvokeAsync<ElementReference>("Skclusive.Script.DomHelpers.ownerWindow", element);
+        //         return await ScriptService.InvokeAsync<ElementReference>("Skclusive.Script.DomHelpers.ownerWindow", element);
         //     }
 
         //     return default(ElementReference);
@@ -183,7 +182,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<string>("Skclusive.Script.DomHelpers.getComputedStyle", element, psuedoElement);
+                return await ScriptService.InvokeAsync<string>("Skclusive.Script.DomHelpers.getComputedStyle", element, psuedoElement);
             }
 
             return null;
@@ -193,7 +192,7 @@ namespace Skclusive.Script.DomHelpers
         // {
         //     if (element.HasValue)
         //     {
-        //         return await JSRuntime.InvokeAsync<bool>("Skclusive.Script.DomHelpers.isDocument", element);
+        //         return await ScriptService.InvokeAsync<bool>("Skclusive.Script.DomHelpers.isDocument", element);
         //     }
 
         //     return false;
@@ -203,7 +202,7 @@ namespace Skclusive.Script.DomHelpers
         // {
         //     if (element.HasValue)
         //     {
-        //         return await JSRuntime.InvokeAsync<bool>("Skclusive.Script.DomHelpers.isWindow", element);
+        //         return await ScriptService.InvokeAsync<bool>("Skclusive.Script.DomHelpers.isWindow", element);
         //     }
 
         //     return false;
@@ -213,7 +212,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.scrollTo", element, value);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.scrollTo", element, value);
             }
         }
 
@@ -221,7 +220,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.scrollLeft", element, value);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.scrollLeft", element, value);
             }
         }
 
@@ -229,7 +228,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.scrollTop", element, value);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.scrollTop", element, value);
             }
         }
 
@@ -237,7 +236,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<Boundry>("Skclusive.Script.DomHelpers.offset", element);
+                return await ScriptService.InvokeAsync<Boundry>("Skclusive.Script.DomHelpers.offset", element);
             }
 
             return null;
@@ -247,7 +246,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<double>("Skclusive.Script.DomHelpers.height", element, client);
+                return await ScriptService.InvokeAsync<double>("Skclusive.Script.DomHelpers.height", element, client);
             }
 
             return -1;
@@ -257,7 +256,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<double>("Skclusive.Script.DomHelpers.width", element, client);
+                return await ScriptService.InvokeAsync<double>("Skclusive.Script.DomHelpers.width", element, client);
             }
 
             return -1;
@@ -267,7 +266,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<Point>("Skclusive.Script.DomHelpers.position", element, offsetParent);
+                return await ScriptService.InvokeAsync<Point>("Skclusive.Script.DomHelpers.position", element, offsetParent);
             }
 
             return null;
@@ -277,7 +276,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                var id = await JSRuntime.InvokeAsync<string>("Skclusive.Script.DomHelpers.scrollParent", element);
+                var id = await ScriptService.InvokeAsync<string>("Skclusive.Script.DomHelpers.scrollParent", element);
 
                 return new ElementReference(id);
             }
@@ -289,7 +288,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<Boundry>("Skclusive.Script.DomHelpers.getBoundry", element);
+                return await ScriptService.InvokeAsync<Boundry>("Skclusive.Script.DomHelpers.getBoundry", element);
             }
 
             return new Boundry
@@ -308,7 +307,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (parent.HasValue && child.HasValue)
             {
-                return await JSRuntime.InvokeAsync<double>("Skclusive.Script.DomHelpers.getScrollParent", parent, child);
+                return await ScriptService.InvokeAsync<double>("Skclusive.Script.DomHelpers.getScrollParent", parent, child);
             }
 
             return default(double);
@@ -318,7 +317,7 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                return await JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getElementOffset", element);
+                return await ScriptService.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getElementOffset", element);
             }
 
             return new Offset
@@ -331,19 +330,19 @@ namespace Skclusive.Script.DomHelpers
 
         public ValueTask<Offset> GetWindowOffsetAsync(ElementReference? element)
         {
-            return JSRuntime.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getWindowOffset", element);
+            return ScriptService.InvokeAsync<Offset>("Skclusive.Script.DomHelpers.getWindowOffset", element);
         }
 
         public ValueTask RemoveNodeAsync(ElementReference? element)
         {
-            return JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeNode", element);
+            return ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.removeNode", element);
         }
 
         public async ValueTask ResetHeightAsync(ElementReference? element)
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.resetHeight", element);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.resetHeight", element);
             }
         }
 
@@ -351,13 +350,13 @@ namespace Skclusive.Script.DomHelpers
         {
             if (element.HasValue)
             {
-                await JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.toggleHeight", element);
+                await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.toggleHeight", element);
             }
         }
 
         public ValueTask GoBackAsync()
         {
-            return JSRuntime.InvokeVoidAsync("Skclusive.Script.DomHelpers.goBack", -1);
+            return ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.goBack", -1);
         }
     }
 }
