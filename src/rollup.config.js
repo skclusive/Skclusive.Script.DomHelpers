@@ -6,9 +6,9 @@ import { terser } from "rollup-plugin-terser";
 process.env.INCLUDE_DEPS === "true";
 
 module.exports = {
-  input: "Scripts/DomHelpers.js",
+  input: "Script/DomHelpersScript.js",
   output: {
-    file: "artifacts/DomHelpers.js",
+    file: "artifacts/DomHelpersScript.js",
     format: "iife",
   },
   plugins: [

@@ -10,6 +10,12 @@ namespace Skclusive.Script.DomHelpers
         {
             services.TryAddCoreServices(config);
             services.TryAddScoped<DomHelpers>();
+
+            services.TryAddTransient<EventDelegator>();
+            services.TryAddTransient<MediaQueryMatcher>();
+            services.TryAddTransient<DetectThemeHelper>();
+            services.TryAddTransient<HistoryBackHelper>();
+
             services.TryAddScriptTypeProvider<DomHelpersScriptProvider>();
         }
     }
