@@ -19,7 +19,7 @@ namespace Skclusive.Blazor.DomHelpers.Tests
 
             builder.Services.TryAddDomHelpersServices(new CoreConfigBuilder().Build());
 
-            builder.Services.AddSingleton<DomHelpersTests>();
+            // builder.Services.AddSingleton<DomHelpersTests>();
 
             await builder.Build().RunAsync();
         }
