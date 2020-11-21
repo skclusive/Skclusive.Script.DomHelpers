@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Skclusive.Script.DomHelpers;
 using Skclusive.Core.Component;
+using System.Net.Http;
 
 namespace Skclusive.Blazor.DomHelpers.Tests
 {
@@ -16,6 +17,8 @@ namespace Skclusive.Blazor.DomHelpers.Tests
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             builder.RootComponents.Add<App>("app");
+
+            builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.TryAddDomHelpersServices(new CoreConfigBuilder().Build());
 
