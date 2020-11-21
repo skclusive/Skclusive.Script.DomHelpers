@@ -5,7 +5,7 @@ import { generateId } from "../DomHelpers/DomHelpers";
 const colorSchemes = {
   Dark: "(prefers-color-scheme: dark)",
   Light: "(prefers-color-scheme: light)",
-  None: "(prefers-color-scheme: no-preference)"
+  None: "(prefers-color-scheme: no-preference)",
 };
 
 export class ThemeDetector {
@@ -32,9 +32,13 @@ export class ThemeDetector {
     if (record) {
       const { callback } = record;
       const activeMatches = [];
-      Object.keys(colorSchemes).forEach(schemeName => {
+      Object.keys(colorSchemes).forEach((schemeName) => {
         const mq = window.matchMedia(colorSchemes[schemeName]);
-        mq.addEventListener("change", callback);
+        if (mq.addEventListener) {
+          mq.addEventListener("change", callback);
+        } else {
+          mq.addListener(callback);
+        }
         activeMatches.push(mq);
         setTimeout(() => callback(mq));
       });
@@ -53,10 +57,7 @@ export class ThemeDetector {
         for (let i = 0; i < schemeNames.length; i++) {
           const schemeName = schemeNames[i];
           if (e.media === colorSchemes[schemeName]) {
-            record.target.invokeMethodAsync(
-              "OnChangeAsync",
-              schemeName
-            );
+            record.target.invokeMethodAsync("OnChangeAsync", schemeName);
             break;
           }
         }
@@ -68,7 +69,13 @@ export class ThemeDetector {
     const record = ThemeDetector.cache[id];
     if (record) {
       const { callback, activeMatches } = record;
-      activeMatches.forEach(mq => mq.removeEventListener("change", callback));
+      activeMatches.forEach((mq) => {
+        if (mq.removeEventListener) {
+          mq.removeEventListener("change", callback);
+        } else {
+          mq.removeListener(callback);
+        }
+      });
       activeMatches.length = 0;
     }
     delete ThemeDetector.cache[id];

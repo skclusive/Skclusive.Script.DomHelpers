@@ -29,10 +29,12 @@ export class MediaQueryMatcher {
     if (record) {
       const { query, callback } = record;
       const queryList = window.matchMedia(query);
-      queryList.addEventListener("change", callback);
-
+      if (queryList.addEventListener) {
+        queryList.addEventListener("change", callback);
+      } else {
+        queryList.addListener(callback);
+      }
       Object.assign(record, { queryList });
-
       setTimeout(callback);
     }
   }
@@ -53,7 +55,11 @@ export class MediaQueryMatcher {
     const record = MediaQueryMatcher.cache[id];
     if (record && record.callback) {
       const { queryList, callback } = record;
-      queryList.removeEventListener("change", callback);
+      if (queryList.removeEventListener) {
+        queryList.removeEventListener("change", callback);
+      } else {
+        queryList.removeListener(callback);
+      }
     }
     delete MediaQueryMatcher.cache[id];
   }

@@ -1,0 +1,28 @@
+﻿@namespace Skclusive.App.View
+
+@inherits PureComponentBase
+
+@page "/counter"
+
+<p>
+    Counter
+</p>
+
+<p>
+    Current count: @currentCount
+</p>
+
+<button
+    @onclick="IncrementCount">
+    Click me
+</button>
+
+@code
+{
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
