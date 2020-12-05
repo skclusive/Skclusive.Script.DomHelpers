@@ -6,6 +6,9 @@ using Skclusive.Core.Component;
 namespace Skclusive.Script.DomHelpers
 {
     public class HistoryBackHelper : IAsyncDisposable
+    #if NETSTANDARD2_0
+        , IDisposable
+    #endif
     {
         public HistoryBackHelper(IScriptService scriptService)
         {
@@ -28,5 +31,17 @@ namespace Skclusive.Script.DomHelpers
                 await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.HistoryBackHelper.dispose", Id);
             }
         }
+
+        #if NETSTANDARD2_0
+
+        void IDisposable.Dispose()
+        {
+            if (this is IAsyncDisposable disposable)
+            {
+                _ = disposable.DisposeAsync();
+            }
+        }
+
+        #endif
     }
 }

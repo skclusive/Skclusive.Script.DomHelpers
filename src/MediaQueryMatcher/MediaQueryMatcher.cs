@@ -6,6 +6,9 @@ using Microsoft.JSInterop;
 namespace Skclusive.Script.DomHelpers
 {
     public class MediaQueryMatcher : IAsyncDisposable
+    #if NETSTANDARD2_0
+        , IDisposable
+    #endif
     {
         public MediaQueryMatcher(IScriptService scriptService)
         {
@@ -42,5 +45,17 @@ namespace Skclusive.Script.DomHelpers
                 await ScriptService.InvokeVoidAsync("Skclusive.Script.DomHelpers.MediaQueryMatcher.dispose", Id);
             }
         }
+
+        #if NETSTANDARD2_0
+
+        void IDisposable.Dispose()
+        {
+            if (this is IAsyncDisposable disposable)
+            {
+                _ = disposable.DisposeAsync();
+            }
+        }
+
+        #endif
     }
 }

@@ -4,7 +4,7 @@ namespace Skclusive.Script.DomHelpers
 {
     public class DomHelpersScriptProvider : ScriptTypeProvider
     {
-        public DomHelpersScriptProvider() : base(typeof(DomHelpersScript))
+        public DomHelpersScriptProvider() : base(priority: 1, typeof(DomHelpersScript))
         {
         }
     }
